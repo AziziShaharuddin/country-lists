@@ -1,8 +1,12 @@
 import AcdoDropdown from "components/Dropdown/AcdoDropdown";
 import AcdoInputField from "components/InputField/AcdoInputField";
 import AcdoSwitch from "components/Switch/AcdoSwitch";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
+import CountryCard from "../components/CountryCard";
+import CountryTable from "../components/CountryTable";
+import { fetchCountries } from "services";
+import NoData from "../components/NoData";
 
 const dropdownData = ['All region', 'Africa', 'America', 'Asia', 'Europe', 'Oceania']
 
@@ -10,6 +14,10 @@ const MainPage = () => {
   const [searchValue, setSearchValue] = useState('')
   const [checked, setChecked] = useState(false)
   const [dropdownValue, setDropdownValue] = useState('')
+  const [countries, setCountries] = useState([])
+  const [filteredCountries, setFilteredCountries] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleTextField = (e) => {
     setSearchValue(e.target.value)
   }
@@ -20,8 +28,51 @@ const MainPage = () => {
   const handleDropdown = (val) => {
     setDropdownValue(val)
   }
+
+  const fetchApi = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const res = await fetchCountries()
+      setCountries(res)
+    } catch (error) {
+      console.log('error', error);
+    } finally {
+      setIsLoading(false)
+    }
+  })
+
+  useEffect(() => {
+    const filteredData = countries
+      ?.filter((item) => {
+        if (dropdownValue === '' || dropdownValue.toLowerCase() === 'All region'.toLowerCase()) {
+          return item
+        } else if (item.region.toLowerCase().includes(dropdownValue.toLowerCase())) {
+          return item
+        } else {
+          return null
+        }
+      })?.filter((countrySearch) => {
+        if (searchValue === '') {
+          return countrySearch
+        } else if (countrySearch.name.common.toLowerCase().includes(searchValue.toLowerCase())) {
+          return countrySearch
+        } else {
+          return null
+        }
+      })
+    setFilteredCountries(filteredData)
+  }, [countries, dropdownValue, searchValue])
+
+  useEffect(() => {
+    const abortController = new AbortController()
+    fetchApi()
+    // cleanup on unmount
+    return () => {
+      abortController.abort()
+    }
+  }, [])
   return (
-    <div>
+    <div className="flex flex-col space-y-4">
       <div className="flex flex-col items-start space-y-6 md:space-y-0 md:flex-row md:justify-between md:items-center w-full">
         <AcdoInputField
           value={searchValue}
@@ -42,6 +93,15 @@ const MainPage = () => {
           </div>
         </div>
       </div>
+      {
+        isLoading ? <p>Loading...</p> : filteredCountries?.length < 1 ? <NoData /> : checked ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {
+            filteredCountries?.map((country) => (
+              <CountryCard data={country} />
+            ))
+          }
+        </div> : <CountryTable data={filteredCountries} />
+      }
     </div>
   );
 };

@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className="sticky top-0 z-10 border-b border-acdo-grayText bg-acdo-white py-5 px-[30px] backdrop-blur ">
+    <div className="sticky top-0 z-10 border-acdo-grayText bg-acdo-white py-5 px-[30px] drop-shadow-lg">
       <div className="relative m-auto flex max-w-[1200px] flex-row items-center justify-end md:justify-between">
         <h1 className="text-h1 hidden md:block">Title</h1>
 

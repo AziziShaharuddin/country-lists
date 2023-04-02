@@ -47,11 +47,11 @@ const AcdoDropdown = ({ children, options, value, onChange, placeholder = 'Filte
               : value
             : placeholder}
         </div>
-        <AiOutlineCaretDown size={15} className={`${isFocus && "rotate-180 transition-all duration-200"} text-acdo-grayText`} />
+        <AiOutlineCaretDown size={15} className={`${isFocus ? "rotate-180 transition-all duration-200" : "-rotate-0 transition-all duration-200"} text-acdo-grayText`} />
       </div>
       <ul
         ref={menuRef}
-        className={`absolute w-full bg-white rounded-[4.5px] mt-2 max-h-60 overflow-y-auto ${isFocus ? "block" : "hidden opacity-0"
+        className={`absolute z-50 w-full bg-white rounded-[4.5px] mt-2 max-h-60 overflow-y-auto ${isFocus ? "block" : "hidden opacity-0"
           } `}
       >
         {
