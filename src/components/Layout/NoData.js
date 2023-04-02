@@ -4,7 +4,7 @@ const NoData = () => {
       <h1 className="text-h1 font-bold">Ops</h1>
       <p>We could not find the country you search for</p>
     </div>
-  )
-}
+  );
+};
 
-export default NoData
+export default NoData;

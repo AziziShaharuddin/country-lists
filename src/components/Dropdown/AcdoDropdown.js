@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
 
-const AcdoDropdown = ({ options, value, onChange, placeholder = 'Filter by region', className }) => {
+const AcdoDropdown = ({
+  options, //set of data for menu items in the dropdown
+  value, //value selected
+  onChange,
+  placeholder = "Filter by region",
+  className,
+}) => {
+  const selectRef = useRef();
+  const menuRef = useRef();
 
-  const selectRef = useRef()
-  const menuRef = useRef()
-
-  const [isFocus, setIsFocus] = useState(false)
+  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -35,8 +40,8 @@ const AcdoDropdown = ({ options, value, onChange, placeholder = 'Filter by regio
       <div
         ref={selectRef}
         onClick={() => setIsFocus(!isFocus)}
-        className={`bg-white dark:bg-acdo-grayLine w-full part border p-3 flex items-center cursor-default justify-between rounded ${isFocus ? 'border-acdo-secondary' : 'border-acdo-grayLine'} ${!value && "text-gray-700"
-          }`}
+        className={`bg-white dark:bg-acdo-grayLine w-full part border p-3 flex items-center cursor-default justify-between rounded ${isFocus ? "border-acdo-secondary" : "border-acdo-grayLine"
+          } ${!value && "text-gray-700"}`}
       >
         <div>
           {value
@@ -45,36 +50,40 @@ const AcdoDropdown = ({ options, value, onChange, placeholder = 'Filter by regio
               : value
             : placeholder}
         </div>
-        <AiOutlineCaretDown size={15} className={`${isFocus ? "rotate-180 transition-all duration-200" : "-rotate-0 transition-all duration-200"} text-acdo-grayText dark:text-acdo-primary`} />
+        <AiOutlineCaretDown
+          size={15}
+          className={`${isFocus
+              ? "rotate-180 transition-all duration-200"
+              : "-rotate-0 transition-all duration-200"
+            } text-acdo-grayText dark:text-acdo-primary`}
+        />
       </div>
       <ul
         ref={menuRef}
         className={`absolute z-50 w-full bg-white dark:bg-acdo-background rounded-[4.5px] mt-2 max-h-60 overflow-y-auto ${isFocus ? "block" : "hidden opacity-0"
           } `}
       >
-        {
-          options?.map((item, index) => (
-            <li
-              key={index}
-              value={item}
-              className={`p-2 m-1 cursor-pointer rounded-[4.5px] text-caption hover:bg-acdo-grayText hover:text-white
+        {options?.map((item, index) => (
+          <li
+            key={index}
+            value={item}
+            className={`p-2 m-1 cursor-pointer rounded-[4.5px] text-caption hover:bg-acdo-grayText hover:text-white
         ${item?.toLowerCase() === value?.toLowerCase() &&
-                "bg-acdo-secondary text-white"
-                }`}
-              onClick={() => {
-                if (item?.toLowerCase() !== value.toLowerCase()) {
-                  onChange(item);
-                  setIsFocus(false);
-                }
-              }}
-            >
-              {item}
-            </li>
-          ))
-        }
+              "bg-acdo-secondary text-white"
+              }`}
+            onClick={() => {
+              if (item?.toLowerCase() !== value.toLowerCase()) {
+                onChange(item);
+                setIsFocus(false);
+              }
+            }}
+          >
+            {item}
+          </li>
+        ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default AcdoDropdown
+export default AcdoDropdown;
