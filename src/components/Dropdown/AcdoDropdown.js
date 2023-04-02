@@ -35,7 +35,7 @@ const AcdoDropdown = ({ options, value, onChange, placeholder = 'Filter by regio
       <div
         ref={selectRef}
         onClick={() => setIsFocus(!isFocus)}
-        className={`bg-white w-full part border p-3 flex items-center cursor-default justify-between rounded ${isFocus ? 'border-acdo-secondary' : 'border-acdo-grayLine'} ${!value && "text-gray-700"
+        className={`bg-white dark:bg-acdo-grayLine w-full part border p-3 flex items-center cursor-default justify-between rounded ${isFocus ? 'border-acdo-secondary' : 'border-acdo-grayLine'} ${!value && "text-gray-700"
           }`}
       >
         <div>
@@ -45,11 +45,11 @@ const AcdoDropdown = ({ options, value, onChange, placeholder = 'Filter by regio
               : value
             : placeholder}
         </div>
-        <AiOutlineCaretDown size={15} className={`${isFocus ? "rotate-180 transition-all duration-200" : "-rotate-0 transition-all duration-200"} text-acdo-grayText`} />
+        <AiOutlineCaretDown size={15} className={`${isFocus ? "rotate-180 transition-all duration-200" : "-rotate-0 transition-all duration-200"} text-acdo-grayText dark:text-acdo-primary`} />
       </div>
       <ul
         ref={menuRef}
-        className={`absolute z-50 w-full bg-white rounded-[4.5px] mt-2 max-h-60 overflow-y-auto ${isFocus ? "block" : "hidden opacity-0"
+        className={`absolute z-50 w-full bg-white dark:bg-acdo-background rounded-[4.5px] mt-2 max-h-60 overflow-y-auto ${isFocus ? "block" : "hidden opacity-0"
           } `}
       >
         {

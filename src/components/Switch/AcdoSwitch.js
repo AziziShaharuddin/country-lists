@@ -2,7 +2,7 @@ const AcdoSwitch = ({ trackClassName, checkClassName, ...rest }) => {
   return (
     <label
       htmlFor="check"
-      className={`bg-acdo-white border border-acdo-primary cursor-pointer relative w-[40px] h-[25px] rounded-full ${trackClassName}`}
+      className={`bg-acdo-white dark:bg-acdo-grayLine border border-acdo-primary cursor-pointer relative w-[40px] h-[25px] rounded-full ${trackClassName}`}
     >
       <input id="check" type="checkbox" className="sr-only peer" {...rest} />
       <span

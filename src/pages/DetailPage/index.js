@@ -1,4 +1,4 @@
-import populationValueConversion from "pages/util/populationConversion";
+import populationValueConversion from "util/populationConversion";
 import { useNavigate, useParams } from "react-router-dom"
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { useCallback, useEffect, useState } from "react";
@@ -80,7 +80,7 @@ const DetailPage = () => {
   }
   return (
     <div className="flex flex-col items-start space-y-4 w-full">
-      <button onClick={handleNavigate} className="bg-acdo-white flex items-center w-auto hover:bg-acdo-grayLine text-acdo-secondary py-2 px-4 border border-acdo-secondary rounded-[4.5px]">
+      <button onClick={handleNavigate} className="bg-acdo-white dark:bg-acdo-grayLine flex items-center w-auto hover:bg-acdo-grayLine text-acdo-secondary py-2 px-4 border border-acdo-secondary rounded-[4.5px]">
         <HiOutlineArrowSmLeft size={25} className="mr-2" />Back
       </button>
       {
@@ -88,13 +88,13 @@ const DetailPage = () => {
           <img src={data?.flags?.png} alt={data?.flags?.alt} className="w-full lg:w-2/5" />
           <div className="flex flex-1 flex-col justify-between self-stretch w-full h-auto">
             <div>
-              <h1 className="text-h1 mb-4 lg:mb-2">{data?.name?.common}</h1>
+              <h1 className="text-h1 mb-4 lg:mb-2 dark:text-acdo-grayLine">{data?.name?.common}</h1>
               <div className="w-full flex flex-col mb-10 lg:mb-0  md:flex-row space-y-10 md:space-y-0 items-start">
                 <div className="flex w-full md:w-1/2 flex-col space-y-2">
                   {
                     detailsArray?.slice(0, 5)?.map((detail, index) => (
                       <div key={index} className="flex items-center space-x-1">
-                        <p className="font-medium">{detail?.title}:</p>
+                        <p className="font-medium dark:text-acdo-grayLine">{detail?.title}:</p>
                         <p className="text-acdo-grayText">{detail?.value}</p>
                       </div>
                     ))
@@ -104,7 +104,7 @@ const DetailPage = () => {
                   {
                     detailsArray?.slice(5)?.map((detail, index) => (
                       <div key={index} className="flex items-center space-x-1">
-                        <p className="font-medium">{detail?.title}:</p>
+                        <p className="font-medium dark:text-acdo-grayLine">{detail?.title}:</p>
                         <p className="text-acdo-grayText">{detail?.value}</p>
                       </div>
                     ))
@@ -113,7 +113,7 @@ const DetailPage = () => {
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-2">
-              <p className="font-medium">Border countries:</p>
+              <p className="font-medium dark:text-acdo-grayLine">Border countries:</p>
               <div className="flex items-start space-x-2">
                 {data?.borders?.map((border, index) => (
                   <div key={index} className="rounded-[4.5px] bg-acdo-secondary text-acdo-white px-2 py-1">

@@ -92,12 +92,12 @@ const MainPage = () => {
         <div className="flex items-center space-x-2 w-full md:w-auto">
           <AcdoDropdown options={dropdownOptions} value={dropdownValue} onChange={handleDropdown} className={`min-w-0 w-full md:w-auto md:min-w-[250px]`} />
           <div className="flex items-center space-x-3">
-            <p className="text-caption">Table</p>
+            <p className="text-caption dark:text-acdo-grayLine">Table</p>
             <AcdoSwitch
               checked={checked}
               onChange={handleSwitch}
             />
-            <p className="text-caption">Card</p>
+            <p className="text-caption dark:text-acdo-grayLine">Card</p>
           </div>
         </div>
       </div>

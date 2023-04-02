@@ -7,7 +7,7 @@ const AcdoInputField = ({
 }) => {
   return (
     <div
-      className={`relative border focus-within:border-acdo-secondary flex items-center rounded-[4.5px] bg-acdo-white ${className}`}
+      className={`relative border focus-within:border-acdo-secondary flex items-center rounded-[4.5px] dark:bg-acdo-grayLine bg-acdo-white ${className}`}
     >
       {startAdornment && (
         <span className={`ml-4 cursor-default `}>{startAdornment}</span>
@@ -15,7 +15,7 @@ const AcdoInputField = ({
       <input
         {...rest}
         type={type}
-        className="rounded-[4.5px] focus:outline-none bg-transparent p-4"
+        className="rounded-[4.5px] focus:outline-none bg-transparent placeholder:dark:text-acdo-grayText p-4"
       />
       {endAdornment && (
         <span className="mr-4 cursor-default ">{endAdornment}</span>
