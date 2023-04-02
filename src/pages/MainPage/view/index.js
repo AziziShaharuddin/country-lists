@@ -2,7 +2,7 @@ import AcdoDropdown from "components/Dropdown/AcdoDropdown";
 import AcdoInputField from "components/InputField/AcdoInputField";
 import AcdoSwitch from "components/Switch/AcdoSwitch";
 import { useCallback, useEffect, useState } from "react";
-import { MdSearch } from "react-icons/md";
+import { MdSearch, MdGridView, MdList } from "react-icons/md";
 import CountryCard from "../components/CountryCard";
 import CountryTable from "../components/CountryTable";
 import { fetchCountries } from "services";
@@ -92,12 +92,12 @@ const MainPage = () => {
         <div className="flex items-center space-x-2 w-full md:w-auto">
           <AcdoDropdown options={dropdownOptions} value={dropdownValue} onChange={handleDropdown} className={`min-w-0 w-full md:w-auto md:min-w-[250px]`} />
           <div className="flex items-center space-x-3">
-            <p className="text-caption dark:text-acdo-grayLine">Table</p>
+            <MdList size={20} className='text-acdo-primary dark:text-acdo-grayText' />
             <AcdoSwitch
               checked={checked}
               onChange={handleSwitch}
             />
-            <p className="text-caption dark:text-acdo-grayLine">Card</p>
+            <MdGridView size={20} className='text-acdo-primary dark:text-acdo-grayText' />
           </div>
         </div>
       </div>
