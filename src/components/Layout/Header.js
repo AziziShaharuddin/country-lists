@@ -1,8 +1,11 @@
+import { useLocation } from "react-router-dom"
+
 const Header = () => {
+  const { pathname } = useLocation()
   return (
     <div className="sticky top-0 z-10 border-acdo-grayText bg-acdo-white py-5 px-[30px] drop-shadow-lg">
       <div className="relative m-auto flex max-w-[1200px] flex-row items-center justify-end md:justify-between">
-        <h1 className="text-h1 hidden md:block">Title</h1>
+        <h1 className="text-h1 hidden md:block">{pathname === '/' ? 'Country Lists' : 'Country Details'}</h1>
 
         <div className="flex items-center justify-end space-x-2">
           <p>Switch dark mode</p>

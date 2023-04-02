@@ -1,8 +1,13 @@
 import populationValueConversion from "pages/util/populationConversion"
+import { useNavigate } from "react-router-dom"
 
 const CountryCard = ({ data }) => {
+  const navigate = useNavigate()
+  const handleNavigate = () => {
+    navigate(`/country/${data?.name.common}`)
+  }
   return (
-    <div className="cursor-pointer bg-acdo-background hover:drop-shadow-xl hover:transition-all hover:duration-200">
+    <div onClick={handleNavigate} className="cursor-pointer bg-acdo-background hover:drop-shadow-xl hover:transition-all hover:duration-200">
       <div
         style={{ backgroundImage: `url(${data?.flags?.png})` }}
         className="w-full h-[180px] bg-contain bg-center bg-no-repeat"

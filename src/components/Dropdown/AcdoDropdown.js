@@ -1,9 +1,7 @@
-import { Children, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
 
-const AcdoDropdown = ({ children, options, value, onChange, placeholder = 'Filter by region', className }) => {
-
-  // const childrenArray = Children.toArray(children)
+const AcdoDropdown = ({ options, value, onChange, placeholder = 'Filter by region', className }) => {
 
   const selectRef = useRef()
   const menuRef = useRef()
@@ -55,8 +53,9 @@ const AcdoDropdown = ({ children, options, value, onChange, placeholder = 'Filte
           } `}
       >
         {
-          options?.map((item) => (
+          options?.map((item, index) => (
             <li
+              key={index}
               value={item}
               className={`p-2 m-1 cursor-pointer rounded-[4.5px] text-caption hover:bg-acdo-grayText hover:text-white
         ${item?.toLowerCase() === value?.toLowerCase() &&

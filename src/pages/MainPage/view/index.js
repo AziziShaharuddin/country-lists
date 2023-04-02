@@ -6,16 +6,15 @@ import { MdSearch } from "react-icons/md";
 import CountryCard from "../components/CountryCard";
 import CountryTable from "../components/CountryTable";
 import { fetchCountries } from "services";
-import NoData from "../components/NoData";
-
-const dropdownData = ['All region', 'Africa', 'America', 'Asia', 'Europe', 'Oceania']
+import NoData from "components/Layout/NoData";
 
 const MainPage = () => {
   const [searchValue, setSearchValue] = useState('')
   const [checked, setChecked] = useState(false)
+  const [dropdownOptions, setDropdownOptions] = useState([])
   const [dropdownValue, setDropdownValue] = useState('')
   const [countries, setCountries] = useState([])
-  const [filteredCountries, setFilteredCountries] = useState([])
+  const [filteredCountries, setFilteredCountries] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleTextField = (e) => {
@@ -31,15 +30,23 @@ const MainPage = () => {
 
   const fetchApi = useCallback(async () => {
     setIsLoading(true)
+    let array = []
     try {
       const res = await fetchCountries()
+      for (let i = 0; i < res.length; i++) {
+        if (!array.includes(res[i].region)) {
+          array.push(res[i].region)
+        }
+      }
+      array.splice(0, 0, 'All region')
+      setDropdownOptions(array)
       setCountries(res)
     } catch (error) {
       console.log('error', error);
     } finally {
       setIsLoading(false)
     }
-  })
+  }, [])
 
   useEffect(() => {
     const filteredData = countries
@@ -70,6 +77,7 @@ const MainPage = () => {
     return () => {
       abortController.abort()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className="flex flex-col space-y-4">
@@ -82,7 +90,7 @@ const MainPage = () => {
           className={`w-full md:w-auto`}
         />
         <div className="flex items-center space-x-2 w-full md:w-auto">
-          <AcdoDropdown options={dropdownData} value={dropdownValue} onChange={handleDropdown} className={`min-w-0 w-full md:w-auto md:min-w-[250px]`} />
+          <AcdoDropdown options={dropdownOptions} value={dropdownValue} onChange={handleDropdown} className={`min-w-0 w-full md:w-auto md:min-w-[250px]`} />
           <div className="flex items-center space-x-3">
             <p className="text-caption">Table</p>
             <AcdoSwitch
@@ -94,10 +102,10 @@ const MainPage = () => {
         </div>
       </div>
       {
-        isLoading ? <p>Loading...</p> : filteredCountries?.length < 1 ? <NoData /> : checked ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        isLoading || !filteredCountries ? <p>Loading...</p> : filteredCountries?.length < 1 ? <NoData /> : checked ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {
-            filteredCountries?.map((country) => (
-              <CountryCard data={country} />
+            filteredCountries?.map((country, index) => (
+              <CountryCard key={index} data={country} />
             ))
           }
         </div> : <CountryTable data={filteredCountries} />
